@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerClickRaycaster : MonoBehaviour
 {
     private PlayerInputController playerInput;
-    private IInteractable CurrentInteractable;
+    private IInteractable currentInteractable;
     private int maxDistance = 15;
 
     private void Awake()
@@ -29,7 +29,7 @@ public class PlayerClickRaycaster : MonoBehaviour
     {
         int layerMask = 1 << LayerNames.Tree;
         RaycastHit2D hit = Physics2D.Raycast(playerInput.MousePosition, Vector2.zero, Mathf.Infinity, layerMask);
-        CurrentInteractable = hit.collider.GetComponent<IInteractable>();
-        CurrentInteractable.Interact();
+        currentInteractable = hit.collider.GetComponent<IInteractable>();
+        currentInteractable.Interact();
     }
 }
