@@ -8,7 +8,7 @@ using UnityEngine.Windows;
 public class PlayerInputController : MonoBehaviour
 {
     public UnityAction<Vector2> OnPositionEvent;
-    public UnityAction OnClickEvent;
+    public UnityAction<bool> OnClickEvent;
     public Vector2 MousePosition{get; private set;}
     private PlayerInput Input;
     private Camera mainCam;
@@ -23,6 +23,8 @@ public class PlayerInputController : MonoBehaviour
     {
         Input.Player.Position.performed += PlayerPosition;
         Input.Player.Position.canceled += PlayerPosition;
+        Input.Player.Click.performed += PlayerClick;
+        Input.Player.Click.canceled += PlayerClick;
 
         Input.Player.Enable();
     }
@@ -37,11 +39,12 @@ public class PlayerInputController : MonoBehaviour
         Vector2 newPositionValue = context.ReadValue<Vector2>();
         Vector2 worldPos = mainCam.ScreenToWorldPoint(newPositionValue);
         newPositionValue = (worldPos - (Vector2)transform.position).normalized;
-        Debug.Log(newPositionValue);
     }
 
-    private void OnMousePosition()
+    private void PlayerClick(InputAction.CallbackContext context)
     {
-
+        float value = context.ReadValue<float>();
+        bool isPressed = value > 0.5f;
+        OnClickEvent?.Invoke(isPressed);
     }
 }
