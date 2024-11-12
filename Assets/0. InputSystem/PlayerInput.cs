@@ -31,7 +31,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Position"",
                     ""type"": ""Value"",
                     ""id"": ""55475673-7c79-4f4e-a801-7b4a6f9eadc3"",
-                    ""expectedControlType"": ""Delta"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -50,7 +50,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""307da2cf-4e78-45d2-9946-7a99ea214dc3"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse"",
