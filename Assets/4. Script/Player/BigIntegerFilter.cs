@@ -8,6 +8,7 @@ public class BigIntegerFilter : MonoBehaviour
 {
     public StatusListSO statusListSO;
     private static readonly string[] StandardUnits = { "", "K", "M", "G", "T" };
+
     public void SetBigInteger(string key, BigInteger value)
     {
         string bigToString = Filter(value);

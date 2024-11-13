@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerClickRaycaster : MonoBehaviour
+public class PlayerClickOverlapPoint : MonoBehaviour
 {
     private PlayerInputController playerInput;
     private IInteractable currentInteractable;
+    private PlayerTapDamage playerTapDamage;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInputController>();
+        playerTapDamage = GetComponent<PlayerTapDamage>();
     }
 
     private void OnEnable()
@@ -35,6 +37,7 @@ public class PlayerClickRaycaster : MonoBehaviour
         if (currentInteractable != null)
         {
             currentInteractable.Interact();
+            playerTapDamage.AddDamage(playerTapDamage.TapDamage);
         }
         else
         {
