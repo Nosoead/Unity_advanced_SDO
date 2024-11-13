@@ -8,6 +8,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        player = GetComponent<Player>();
+        player = FindObjectOfType<Player>();
+        Time.timeScale = 1f;
+        Application.targetFrameRate = 60;
     }
 }
