@@ -38,7 +38,7 @@ public class PlayerInputController : MonoBehaviour
     {
         Vector2 newPositionValue = context.ReadValue<Vector2>();
         Vector2 worldPos = mainCam.ScreenToWorldPoint(newPositionValue);
-        newPositionValue = (worldPos - (Vector2)transform.position).normalized;
+        MousePosition = worldPos;
     }
 
     private void PlayerClick(InputAction.CallbackContext context)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49caa590fbac7b348b6efa2f00f708d6, type: 3}
   m_Name: StatusSOCurrentDPS
   m_EditorClassIdentifier: 
-  UIName: UICurrentDPS
+  UIName: CurrentDPS
   prefab: {fileID: 6143458396122162376, guid: a7e50bf5296629c42813e160dde590e9, type: 3}
   position: {x: -470, y: -600}
   size: {x: 320, y: 100}

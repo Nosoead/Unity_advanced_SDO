@@ -7,7 +7,6 @@ public class PlayerClickRaycaster : MonoBehaviour
 {
     private PlayerInputController playerInput;
     private IInteractable currentInteractable;
-    private int maxDistance = 15;
 
     private void Awake()
     {
@@ -28,8 +27,18 @@ public class PlayerClickRaycaster : MonoBehaviour
     private void OnClick(bool isClick)
     {
         int layerMask = 1 << LayerNames.Tree;
-        RaycastHit2D hit = Physics2D.Raycast(playerInput.MousePosition, Vector2.zero, Mathf.Infinity, layerMask);
-        currentInteractable = hit.collider.GetComponent<IInteractable>();
-        currentInteractable.Interact();
+        Collider2D collider = Physics2D.OverlapPoint(playerInput.MousePosition, layerMask);
+        if (collider == null) { return; }
+
+        currentInteractable = collider.GetComponent<IInteractable>();
+
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact();
+        }
+        else
+        {
+            return;
+        }
     }
 }
