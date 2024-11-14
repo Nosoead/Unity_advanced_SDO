@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -7,8 +8,20 @@ using UnityEngine.UIElements;
 public class AutoGrowFruit : Fruit, ISkillToggleable
 {
     private IInteractable targetInteractable;
+    private PlayerTapDamage playerTapDamage;
+    private BigIntegerFilter filter;
     private Coroutine autoCoroutine;
     private float autoClickInterval = 0.5f;
+
+    private BigInteger autoDamage;
+    private float initAutoDamage = 1;
+    private float growthFactor = 1.1f;
+    private float autoDamageLevel = 1;
+
+    private BigInteger CurrentAutoDPS = 0;
+    private Coroutine autoDPSCoroutine;
+    private float timeInterval = 1f;
+
     public float AutoClickInterval
     {
         //TODO : AutoClick의 제한을 두자.
@@ -16,19 +29,55 @@ public class AutoGrowFruit : Fruit, ISkillToggleable
         set { autoClickInterval = value; }
     }
 
+    private void Awake()
+    {
+        playerTapDamage = GetComponentInParent<PlayerTapDamage>();
+        filter = GetComponentInParent<BigIntegerFilter>();
+        autoDamage = new BigInteger(initAutoDamage);
+    }
+
     private void Start()
     {
         InitRaycastHit2D();
-        //TODO 버튼에 올리고 Activate 실행
-        Activate();
+        autoDPSCoroutine = StartCoroutine(AutoDPSMeasurementRoutine());
     }
 
     private void InitRaycastHit2D()
     {
         int layerMask = 1 << LayerNames.Tree;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, layerMask);
-        targetInteractable = hit.collider.GetComponent<IInteractable>();
-        targetInteractable.Interact();
+        Collider2D collider = Physics2D.OverlapPoint(transform.position, layerMask);
+        if (collider == null) { return; }
+        targetInteractable = collider.GetComponent<IInteractable>();
+
+        if (targetInteractable != null)
+        {
+            targetInteractable.Interact(autoDamage);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private IEnumerator AutoDPSMeasurementRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(timeInterval);
+
+            CalculateAutoDPS();
+        }
+    }
+    public void AddAutoDamage(BigInteger damage)
+    {
+        CurrentAutoDPS += damage;
+        playerTapDamage.AddTotalDamage(damage);
+    }
+    private void CalculateAutoDPS()
+    {
+        BigInteger autoDPSResult = CurrentAutoDPS;
+        filter.SetBigInteger(key: "AutoDPS", autoDPSResult);
+        CurrentAutoDPS = 0;
     }
 
     public void Activate()
@@ -46,7 +95,8 @@ public class AutoGrowFruit : Fruit, ISkillToggleable
     {
         while (true)
         {
-            targetInteractable?.Interact();
+            targetInteractable?.Interact(autoDamage);
+            AddAutoDamage(autoDamage);
             yield return new WaitForSeconds(autoClickInterval);
         }
     }
@@ -60,4 +110,32 @@ public class AutoGrowFruit : Fruit, ISkillToggleable
         }
     }
 
+    public void TogglePanel()
+    {
+        bool isActive = !gameObject.activeSelf;
+        gameObject.SetActive(isActive);
+        if (isActive)
+        {
+            Activate();
+        }
+        else
+        {
+            Deactivate();
+        }
+    }
+
+    public void autoDamageLevelUP()
+    {
+        if(!gameObject.activeSelf) { return; }
+        autoDamageLevel++;
+        SetCurrentDamage(autoDamageLevel);
+        UIManager.Instance.UIShopWindow.autoLevel.ShowLevel(autoDamageLevel);
+    }
+
+    private void SetCurrentDamage(float level)
+    {
+        float setResult = initAutoDamage * Mathf.Pow(level, growthFactor);
+        autoDamage = new BigInteger(setResult);
+
+    }
 }

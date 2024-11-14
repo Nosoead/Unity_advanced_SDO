@@ -11,28 +11,14 @@ public class PlayerTapDamage : MonoBehaviour
     public BigInteger TapDamage { get; private set; }
     private float initTapDamage = 10;
     private float growthFactor = 1.5f;
-    private float playerLevel = 1;
+    private float damageLevel = 1;
 
     //DPS
     private BigInteger MaxDPS = 0;
-    private BigInteger CurrentDPS = 0;
+    private BigInteger currentDPS = 0;
+    private BigInteger totalDPS = 0;
     private float timeInterval = 1f;
     private Coroutine dpsCoroutine;
-
-    public float PlayerLevel
-    {
-        get { return playerLevel; }
-        set
-        {
-            float lastLevel = value;
-            if (PlayerLevel < lastLevel)
-            {
-                PlayerLevel = lastLevel;
-                SetCurrentDamage(PlayerLevel);
-            }
-        }
-
-    }
 
     private void Awake()
     {
@@ -43,16 +29,9 @@ public class PlayerTapDamage : MonoBehaviour
     {
         TapDamage = new BigInteger(initTapDamage);
         filter.SetBigInteger(key: "TapDamage", TapDamage);
-        filter.SetBigInteger(key: "CurrentDPS", CurrentDPS);
+        filter.SetBigInteger(key: "CurrentDPS", currentDPS);
         filter.SetBigInteger(key: "MaxDPS", MaxDPS);
         dpsCoroutine = StartCoroutine(DPSMeasurementRoutine());
-    }
-
-    private void SetCurrentDamage(float level)
-    {
-        float setResult = initTapDamage * Mathf.Pow(level, growthFactor);
-        TapDamage = new BigInteger(setResult);
-        filter.SetBigInteger(key: "TapDamage", TapDamage);
     }
 
     private IEnumerator DPSMeasurementRoutine()
@@ -67,12 +46,18 @@ public class PlayerTapDamage : MonoBehaviour
 
     public void AddDamage(BigInteger damage)
     {
-        CurrentDPS += damage;
+        currentDPS += damage;
+        AddTotalDamage(currentDPS);
+    }
+
+    public void AddTotalDamage(BigInteger damage)
+    {
+        totalDPS += damage;
     }
 
     private void CalculateDPS()
     {
-        BigInteger DPSResult = CurrentDPS;
+        BigInteger DPSResult = totalDPS;
         if (MaxDPS < DPSResult)
         {
             MaxDPS = DPSResult;
@@ -80,6 +65,21 @@ public class PlayerTapDamage : MonoBehaviour
         filter.SetBigInteger(key: "CurrentDPS", DPSResult);
         filter.SetBigInteger(key: "MaxDPS", MaxDPS);
 
-        CurrentDPS = 0;
+        currentDPS = 0;
+        totalDPS = 0;
+    }
+
+    public void DamageLevelUP()
+    {
+        damageLevel++;
+        SetCurrentDamage(damageLevel);
+        UIManager.Instance.UIShopWindow.damageLevel.ShowLevel(damageLevel);
+    }
+
+    private void SetCurrentDamage(float level)
+    {
+        float setResult = initTapDamage * Mathf.Pow(level, growthFactor);
+        TapDamage = new BigInteger(setResult);
+        filter.SetBigInteger(key: "TapDamage", TapDamage);
     }
 }

@@ -6,21 +6,18 @@ using UnityEngine;
 
 public class BigIntegerFilter : MonoBehaviour
 {
-    public StatusListSO statusListSO;
-    private static readonly string[] StandardUnits = { "", "K", "M", "G", "T" };
 
-    public void SetBigInteger(string key, BigInteger value)
+    protected static readonly string[] StandardUnits = { "", "K", "M", "G", "T" };
+
+    public virtual void SetBigInteger(BigInteger currentValue, BigInteger MaxValue)
     {
-        string bigToString = Filter(value);
-        RaiseUIUpdateEvent(key, bigToString);
     }
 
-    private void RaiseUIUpdateEvent(string key, string value)
+    public virtual void SetBigInteger(string key, BigInteger value)
     {
-        statusListSO.RaiseUIUpdateEvent(key, value);
     }
 
-    private string Filter(BigInteger value)
+    protected string Filter(BigInteger value)
     {
         BigInteger thousand = new BigInteger(1000);
         int unitIndex = 0;

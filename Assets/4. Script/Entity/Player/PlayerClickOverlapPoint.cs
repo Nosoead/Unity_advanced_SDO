@@ -36,7 +36,7 @@ public class PlayerClickOverlapPoint : MonoBehaviour
 
         if (currentInteractable != null)
         {
-            currentInteractable.Interact();
+            currentInteractable.Interact(playerTapDamage.TapDamage);
             playerTapDamage.AddDamage(playerTapDamage.TapDamage);
         }
         else

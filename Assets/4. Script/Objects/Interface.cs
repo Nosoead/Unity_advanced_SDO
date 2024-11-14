@@ -1,6 +1,8 @@
+using System.Numerics;
+
 public interface IInteractable
 {
-    void Interact();
+    void Interact(BigInteger value);
 }
 
 public interface ISkillUsable
