@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//OverlapPoint로 클릭한 지점에 대해 collider를 레이어 마스크로 찾아냅니다. rigidbody가 필요없을 것 같아 raycasthit2d로 접근했다가 잘못접근해서 overlappoint로 접근했습니다.
 public class PlayerClickOverlapPoint : MonoBehaviour
 {
     private PlayerInputController playerInput;

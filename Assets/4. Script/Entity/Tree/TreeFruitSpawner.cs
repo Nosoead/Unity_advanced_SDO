@@ -4,6 +4,8 @@ using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//나무에서 열매가 스폰되는 곳입니다. 이쁘게하는것 고사하고 오브젝트 만드는 과정이 너무 찝찝한 부분입니다.
+//오브젝트를 확률에따라 이미지랑 바꾸고 등장할때 총 돈값 계산해서 올립니다.
 public class TreeFruitSpawner : MonoBehaviour
 {
     [SerializeField] public List<Sprite> fruitSprite;
@@ -98,6 +100,7 @@ public class TreeFruitSpawner : MonoBehaviour
         }
     }
 
+    #region /UI Button 레벨업 및 정보 업데이트
     public void RewardOnTreeLevelUp()
     {
         GameManager.Instance.player.GetMoney(money);
@@ -137,4 +140,5 @@ public class TreeFruitSpawner : MonoBehaviour
             UIManager.Instance.UIShopWindow.fruitValue.ShowLevel(fruitValueLevel);
         }
     }
+    #endregion
 }

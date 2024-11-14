@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
+//tap titan으로치면 보스봅인데 경험치 쌓이는 느낌으로 했습니다.
 public class TreeEXP : MonoBehaviour
 {
     private BigIntegerFilter filter;

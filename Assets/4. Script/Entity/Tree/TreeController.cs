@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
+//OverlapPoint가 인터페이스를 끄집어내면 여기입니다. 애니메이션움직이고 경험치를 쌓아줍니다.
 public class TreeController : MonoBehaviour, IInteractable
 {
     private static readonly int HitTree = Animator.StringToHash("HitTree");

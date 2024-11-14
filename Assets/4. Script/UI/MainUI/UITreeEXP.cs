@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//게임 상단부 나무 EXP관련입니다.
 public class UITreeEXP : MonoBehaviour
 {
     private Image EXPImage;

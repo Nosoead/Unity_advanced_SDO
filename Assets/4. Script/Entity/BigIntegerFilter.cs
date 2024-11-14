@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Text;
 using UnityEngine;
 
+//큰수에 대한 필터 관련인데, 솔직히 1000단위로 해서 막연한 아이디어만 있어서 GPT쓰고 분석하고 이상한거 고치고 이랬습니다.
 public class BigIntegerFilter : MonoBehaviour
 {
 
@@ -29,14 +30,13 @@ public class BigIntegerFilter : MonoBehaviour
             unitIndex++;
         }
 
-        // Standard units (K, M, G, T까지)
+        
         if (unitIndex < StandardUnits.Length)
         {
             return $"{displayValue:F2}{StandardUnits[unitIndex]}";
         }
 
-        // Custom alphabet units (A, B, ..., Z, AA, ...)
-        unitIndex -= StandardUnits.Length - 1; // Standard 단위 이후에 알파벳 단위 시작
+        unitIndex -= StandardUnits.Length - 1;
         StringBuilder unitBuilder = new StringBuilder();
 
         while (unitIndex >= 0)

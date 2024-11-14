@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-
+//게임 상단바 타이머이고, 값을 받아 노출만 해줍니다.
 public class UITimer : MonoBehaviour
 {
     private Image timeImage;

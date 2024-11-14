@@ -4,6 +4,7 @@ using System.Numerics;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
+//플레이어 데미지관련 계산은 피그마에 올렸습니다. 누적뎀 DPS를 코루틴으로 구하고 초기화시키고 있습니다.
 public class PlayerTapDamage : MonoBehaviour
 {
     private BigIntegerFilter filter;
@@ -69,6 +70,7 @@ public class PlayerTapDamage : MonoBehaviour
         totalDPS = 0;
     }
 
+    #region /UI Button 레벨업 및 정보 업데이트
     public void DamageLevelUP()
     {
         damageLevel++;
@@ -82,4 +84,5 @@ public class PlayerTapDamage : MonoBehaviour
         TapDamage = new BigInteger(setResult);
         filter.SetBigInteger(key: "TapDamage", TapDamage);
     }
+    #endregion
 }

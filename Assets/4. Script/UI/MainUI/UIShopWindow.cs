@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
+//상점창입니다.
 public class UIShopWindow : MonoBehaviour
 {
     public UIDamageLevel damageLevel;

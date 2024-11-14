@@ -2,6 +2,8 @@ using System.Numerics;
 using System.Text;
 using UnityEngine;
 
+
+//나무랑 플레이어랑 다르게 데이터를 넘겨줘야해서 상속만 받고 생성자를 오버로드해서 사용했습니다.
 public class TreeBigIntegerFilter : BigIntegerFilter
 {
     public override void SetBigInteger(BigInteger currentValue, BigInteger MaxValue)

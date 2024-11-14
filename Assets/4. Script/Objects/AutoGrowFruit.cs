@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+//데이터 전달이슈로 플레이어 자식에 붙혔습니다. ISkillToggleable로 토글가능스킬을 박았고, 코루틴의 자동클릭간격을 좁히는 업그레이드도 해보고 싶었는데 시간상 패스했습니다.
 public class AutoGrowFruit : Fruit, ISkillToggleable
 {
     private IInteractable targetInteractable;

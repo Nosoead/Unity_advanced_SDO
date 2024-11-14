@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 
+//generate input을 연습하고 있습니다.
 public class PlayerInputController : MonoBehaviour
 {
     public UnityAction<Vector2> OnPositionEvent;

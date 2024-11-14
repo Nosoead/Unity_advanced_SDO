@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Data;
 
+//UI 동적생성 하고 SO로 이벤트 받아 쏩니다.
 public class UIStatusPanel : MonoBehaviour
 {
     public StatusListSO statusListSO;
@@ -16,11 +17,6 @@ public class UIStatusPanel : MonoBehaviour
         {
             GenerateUIstatus();
         }
-    }
-
-    private void Start()
-    {
-
     }
 
     private void GenerateUIstatus()

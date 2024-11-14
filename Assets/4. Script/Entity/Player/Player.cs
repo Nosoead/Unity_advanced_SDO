@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
+//플레이어에서 싱글톤으로 정보전달할 부분만 좀 넣어놨습니다.
 public class Player : MonoBehaviour
 {
     public PlayerInputController Controller { get; private set; }
